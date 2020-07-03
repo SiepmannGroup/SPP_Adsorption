@@ -1,0 +1,120 @@
+ &io
+     file_input  ='fort.4'
+     file_restart='fort.77'
+     file_struct ='input_struc.xyz'
+     file_run    ='run1a.dat'
+     file_movie  ='movie1a.dat'
+     io_output   = 2
+     run_num     = 1
+     suffix      = a
+     L_movie_xyz = T
+     L_movie_pdb = T
+ /
+
+
+ &system
+     lnpt  =		  T
+     lgibbs= 		  T
+     lgrand= 		F
+     lanes = 		F
+     lvirial= 		F
+     lmipsw = 		F
+     lexpee = 		F
+     ldielect= 		F
+     lpbc = 		  T
+     lpbcx= 		  T
+     lpbcy= 		  T
+     lpbcz= 		  T
+     lfold= 		  T
+     lijall = 		F
+     lchgall= 		F
+     lewald = 		  T
+     lcutcm = 		  T
+     ltailc = 		  T
+     lshift = 		F
+     ldual  = 		  T
+     L_Coul_CBMC=	  T
+     lneigh = 		F
+     lexzeo = 		F
+     lslit  = 		F
+     lgraphite= 	F
+     lsami= 		F
+     lmuir= 		F
+     lelect_field= 	F
+     lgaro = 		F
+     lionic= 		  T
+     L_Ewald_Auto= 	  T
+     lmixlb= 		  T
+     lmixjo= 		F
+     L_spline= 		F
+     L_linear= 		F
+     L_vib_table  = 	F
+     L_bend_table = 	F
+     L_elect_table= 	F
+ /
+
+ATOMS
+!i type(i) epsi(i) sigi(i) q(i) mass(i) chemid(i) chname(i) [Angstrom, Kelvin, a.u.]; type 1: Lennard-Jones
+  1 1   98.0000  3.75000  0.0000  15.0347000 C   #Tr-UA CH3
+  2 1   46.0000  3.95000  0.0000  14.0269000 C   #Tr-UA CH2
+  3 1   10.0000  4.68000  0.0000  13.0191000 C   #Tr-UA CH
+  4 1   148.000  3.73000  0.0000  16.0424600 C   #Tr-UA CH4
+111 1   70.0000  2.60000  -0.192  15.9990000 O   #Tr-EA Furan O
+112 1   30.7000  3.60000  0.0160  12.0107000 C   #Tr-EA Furan C1
+113 1   30.7000  3.60000  -0.135  12.0107000 C   #Tr-EA Furan C2
+114 1   25.5000  2.36000  0.1010  1.00794000 H   #Tr-EA Furan H1
+115 1   25.5000  2.36000  0.1140  1.00794000 H   #Tr-EA Furan H2
+301 1   41.0000  3.90000  0.4200  12.0107000 C   #Potoff04 C (doi: 10.1021/jp048581s)
+302 1   79.0000  3.05000  -0.450  15.9990000 O   #Potoff04 O=(C)
+303 1   93.0000  3.02000  -0.460  15.9990000 O   #Potoff04 O-(H)
+304 1   0.00000  0.00000  0.3700  1.00079400 H   #Potoff04 H
+305 1   46.0000  3.95000  0.1200  14.0269000 C   #Potoff04 CH2-(C=)
+42 1  0.0 0.0  0.435   1.00794     H #Si-O-[H]
+177 1 22.0 2.3  1.429  28.0899     Si #[Si]-Ox-X
+178 1 93.0 3.02 -0.739  15.9994     Os #Si-[Os]-Si
+500 1 0.00  0.00  0.00   0.00     OD
+501 1 22.0 2.3  1.5000 28.0899     Si #[Si]-Ox-X
+502 1 53.0 3.3 -0.7500 15.9994     Os #Si-[Os]-Si
+END ATOMS
+
+NONBOND
+!i j type(ij) epsi(ij) sigi(ij) [Angstrom, Kelvin, a.u.]; type 1: Lennard-Jones
+#389 390 2 2.089248E8 4.87318 1.549644E6 #BKS [O-Si]
+#391 392 4 14.129512 3.598788 #MMFF94 [C-H]
+#398 399 2 5.5355E6 3.67 6.441E4 #Williams [C-H]
+#3 190 7 3.41E7 20800.0 0.86 #Hautman [CH4]
+#4 190 7 3.41E7 20800.0 0.86 #Hautman [CH3]
+#5 190 7 2.80E7 17100.0 0.86 #Hautman [CH2]
+END NONBOND
+
+BONDS
+!i type(i) brvib(i) brvibk(i) [Angstrom]; type 1: U = brvibk * ( r_ij - brvib ) ^ 2
+  1 1 1.54000   0.00000 #Tr-UA CHx-CHy
+  2 1 1.21400   0.00000 #Potoff04 C=O (doi: 10.1021/jp048581s)
+  3 1 1.36400   0.00000 #Potoff04 C-O
+  4 1 1.52000   0.00000 #Potoff04 C-CH3
+  5 1 0.97000   0.00000 #Potoff04 O-H
+ 29 1 0.94500   0.00000 # Silanol O-H
+111 1 1.61000   0.00000 # Silanol Si-O
+END BONDS
+
+ANGLES
+!i type(i) brben(i) brbenk(i) [degree]; type 1: U = brbenk * ( theta_ijk - brben ) ^ 2 [radian]
+  1 1 114.0000   31250.0  #Tr-UA CHx-(CH2)-CHy
+  2 1 112.0000   31250.0  #Tr-UA CHx-(CH)-CHy
+  3 1 107.0000   17600.0  #Potoff04 H-O-C (doi: 10.1021/jp048581s)
+  4 1 123.0000   40300.0  #Potoff04 O-C=O
+  5 1 111.0000   35300.0  #Potoff04 O-C-CH3
+  6 1 126.0000   40300.0  #Potoff04 O=C-CH3
+ 35 1 108.5000   27720.0 # Silanol Si-O-H
+160 1 109.0  00000.0 # dummy atoms*Silanol
+END ANGLES
+
+DIHEDRALS
+!i type(i) vtt0(i) vtt1(i) vtt2(i) vtt3(i); !!!check vtorso.f, calctor.f!!!
+  1 1    0.00   355.03   -68.19   791.32  0.0  0.0  0.0  0.0  0.0 0.0 #CHx-(CH2)-(CH2)-CHy
+  2 1 -251.06   428.73  -111.85   441.27  0.0  0.0  0.0  0.0  0.0 0.0 #CHx-(CH2)-(CH)-CHy
+  3 1    0.00   630.00  1562.40   0.0000  0.0  0.0  0.0  0.0  0.0 0.0 #Potoff04 C-C-O-H (doi: 10.1021/jp048581s)
+  4 1  1260.0  -630.00  1562.40   0.0000  0.0  0.0  0.0  0.0  0.0 0.0 #Potoff04 O-C-O-H
+400 3 163.56 3 0.0 # Silanol OD-Si-O-H
+END DIHEDRALS
